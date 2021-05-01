@@ -1,0 +1,6 @@
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Debug\netstandard2.0\Money.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Debug\netstandard2.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Debug\netstandard2.0\DataAccess.AssemblyInfo.cs
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Debug\netstandard2.0\DataAccess.deps.json
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Debug\netstandard2.0\DataAccess.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Debug\netstandard2.0\DataAccess.csprojAssemblyReference.cache
