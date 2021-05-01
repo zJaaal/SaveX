@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\SaveX\\Money\\Money.csproj": {}
+    "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Money\\Money.csproj": {}
   },
   "projects": {
-    "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\SaveX\\Money\\Money.csproj": {
+    "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Money\\Money.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\SaveX\\Money\\Money.csproj",
+        "projectUniqueName": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Money\\Money.csproj",
         "projectName": "Money",
-        "projectPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\SaveX\\Money\\Money.csproj",
+        "projectPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Money\\Money.csproj",
         "packagesPath": "C:\\Users\\astef_000\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\SaveX\\Money\\obj\\",
+        "outputPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Money\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\astef_000\\AppData\\Roaming\\NuGet\\NuGet.Config",

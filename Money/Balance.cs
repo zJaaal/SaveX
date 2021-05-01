@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace Money
 {
     /// <summary>
@@ -124,6 +125,13 @@ namespace Money
         public string Description { get; set; }
         public static List<Debt> Debts = new List<Debt>();
         public static List<Debt> CopyDebts = new List<Debt>();
+        public static decimal TotalDebts
+        {
+            get
+            {
+                return Debts.Select(x => x.Amount).Sum();
+            }
+        }
         public Debt(DateTime DeadLine, string Description, decimal Amount) : base(DeadLine, Description, Amount)
         {
             this.DeadLine = DeadLine;
@@ -169,6 +177,13 @@ namespace Money
         public string Description { get; set; }
         public static List<Saving> Saves = new List<Saving>();
         public static List<Saving> CopySaves = new List<Saving>();
+        public static decimal TotalSaves
+        {
+            get
+            {
+                return Saves.Select(x => x.Amount).Sum();
+            }
+        }
         public Saving(DateTime CreationDate, string Description, decimal Amount) : base(CreationDate, Description, Amount)
         {
             this.CreationDate = CreationDate;

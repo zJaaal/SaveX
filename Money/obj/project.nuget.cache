@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JnCus5nUFPVC5pZl4yR5l0WhLOrhzBLZOjeBPuL4+6Pt+e/fkgtDGTK39gNJrahjspWWC7RCs4tZp9LmvYXAjA==",
+  "dgSpecHash": "IUJQpfHxSEgAq+L7d/hvzUrWLtgCifa/8rTfhx51B1b9JzqZdoiBJf7el0+1/COX8hsxdxvGfM2lfNfjTP2NcA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\SaveX\\Money\\Money.csproj",
+  "projectFilePath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Money\\Money.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\astef_000\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\astef_000\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
