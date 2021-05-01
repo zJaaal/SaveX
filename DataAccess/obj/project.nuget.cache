@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "xP7bMzFhNZSBPiiDx4AhzsynWAujOVGxwxq1L38gMT0PbVlWuXV7jCLRnfsIhLEvdedqIcYY4fHwAy9IuMpytg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\DataAccess\\DataAccess.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\astef_000\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\astef_000\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\astef_000\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
