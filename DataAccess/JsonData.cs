@@ -14,13 +14,9 @@ namespace DataAccess
         public decimal ActualDebt { get; set; }
         public decimal ActualSaves { get; set; }
 
-        public static string JsonDirectoryPath
-        {
-            get
-            {
-                return Path.Combine(Path.GetFullPath(@"UserData"), @"\User.json");
-            }
-        }
+        public static string JsonDirectoryPath = @"C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\SavexUserData\User.json";
+
+
         /// <summary>
         /// This method checks if there is a json file, if it's not there then it create it
         /// and returns true to enter to the form to fill the Json.
