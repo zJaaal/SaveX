@@ -6,7 +6,7 @@ namespace Money
     /// <summary>
     /// All the validations for Value >= 0 will be done in the forms
     /// </summary>
-    public abstract class Balance : ICloneable 
+    public class Balance : ICloneable 
     {
         /// <summary>
         /// Base class for all types of money
@@ -14,23 +14,19 @@ namespace Money
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         public string Name { get; set; }
+        public decimal Saves { get; set; }
         /// <summary>
         /// Balance base constructor
         /// </summary>
         /// <param name="Date"> The date of creation, dead line or date of expense</param>
-        /// <param name="Description"> The description of the Expense, Saving or Debt</param>
+        /// <param name="Name">  The name of the account or the description of the Expense or Debt</param>
         /// <param name="Amount">The Amount of the saving,expense or debt</param>
-        public Balance(DateTime Date, string Description,decimal Amount)
+        public Balance(DateTime Date, string Name,decimal Amount)
         {
             this.Amount = Amount;
             this.Date = Date;
-            this.Name = Description;
+            this.Name = Name;
         }
-        /// <summary>
-        /// This method undo a removing error 
-        /// </summary>
-        /// <param name="Account"> Account being changed</param>
-        public abstract void Undo(Balance Account);
         /// <summary>
         /// This method remove and amount from balance if the one added was an error
         /// </summary>
@@ -41,11 +37,33 @@ namespace Money
             Balance.Amount -= Amount;
         }
         /// <summary>
+        /// To use an amount for a debt or a expense
+        /// </summary>
+        /// <param name="Amount"></param>
+        /// <param name="Account"></param>
+        public static void UseSaving(decimal Amount, Balance Account)
+        {
+            Account.Amount += Amount;
+            Account.Saves -= Amount;
+        }
+        /// <summary>
+        /// to add an amount to the saves
+        /// </summary>
+        /// <param name="Amount"></param>
+        /// <param name="Account"></param>
+        public static void AddSaving(decimal Amount, Balance Account)
+        {
+            Account.Amount -= Amount;
+            Account.Saves += Amount;
+        }
+
+        /// <summary>
         /// This add some amount to the Account
         /// </summary>
         /// <param name="Amount"> The amount to be added</param>
         /// <param name="balance"> The Account we are going to add the amount</param>
         public static void AddBalance(decimal Amount, Balance balance) => balance.Amount += Amount;
+       
         /// <summary>
         /// Clone method to create an Undo button. I added a List of copies for each type of balance
         /// </summary>
@@ -65,16 +83,18 @@ namespace Money
     {
         public DateTime ExpenseDate { get; set; }
         public string Description  { get; set; }
+        public int ID { get; set; }
         /// <summary>
         /// A list of expenses to send and recieve from the database
         /// </summary>
         public static List<Expense> Expenses = new List<Expense>();
         public static List<Expense> CopyExpenses = new List<Expense>();
-        public Expense(DateTime ExpenseDate, string Description, decimal Amount) : base(ExpenseDate, Description, Amount)
+        public Expense(int ID, DateTime ExpenseDate, string Description, decimal Amount) : base(ExpenseDate, Description, Amount)
         {
             this.ExpenseDate = ExpenseDate;
             this.Description = Description;
             this.Amount = Amount;
+            this.ID = ID;
         }
         /// <summary>
         /// This method create and add an expense to the list. Since it is an expense we need to subtract
@@ -84,11 +104,12 @@ namespace Money
         /// <param name="Description">What we bought or pay</param>
         /// <param name="Amount"> The total amount</param>
         /// <param name="Account"> The Account where we will subtract</param>
-        public static void CreateAndAdd(DateTime ExpenseDate, string Description, decimal Amount, Balance Account)
+        public static void CreateAndAdd(int ID, DateTime ExpenseDate, string Description, decimal Amount, Balance Account)
         {
-            Expense MyExpense = new Expense(ExpenseDate, Description, Amount);
+            Expense MyExpense = new Expense(ID, ExpenseDate, Description, Amount);
             Account.Amount -= MyExpense.Amount;
             Expenses.Add(MyExpense);
+            UpdateId();
         }
         /// <summary>
         /// This method creates a copy of the Expense then we will add it to a copy list
@@ -103,6 +124,7 @@ namespace Money
             CopyExpenses.Add(Copy);
             Account.Amount += MyExpense.Amount;
             Expenses.Remove(MyExpense);
+            UpdateId();
         }
         /// <summary>
         /// This methods undo the remove action
@@ -111,18 +133,29 @@ namespace Money
         /// Therefore it the copy to the main list and delete it from the copy list
         /// </summary>
         /// <param name="Account"> The account we are changing </param>
-        public override void Undo(Balance Account)
+        public void Undo(Balance Account)
         {
             Expense MyExpense = CopyExpenses[CopyExpenses.Count - 1];
             Account.Amount -= MyExpense.Amount;
             Expenses.Add(MyExpense);
             CopyExpenses.RemoveAt(CopyExpenses.Count - 1);
+            UpdateId();
+        }
+        private static void UpdateId()
+        {
+            int Count = 1;
+            foreach(Expense a in Expenses)
+            {
+                a.ID = Count;
+                Count++;
+            }
         }
     }
     public class Debt : Balance
     {
         public DateTime DeadLine { get; set; }
         public string Description { get; set; }
+        public int ID { get; set; }
         public static List<Debt> Debts = new List<Debt>();
         public static List<Debt> CopyDebts = new List<Debt>();
         public static decimal TotalDebts
@@ -132,11 +165,12 @@ namespace Money
                 return Debts.Select(x => x.Amount).Sum();
             }
         }
-        public Debt(DateTime DeadLine, string Description, decimal Amount) : base(DeadLine, Description, Amount)
+        public Debt(int ID, DateTime DeadLine, string Description, decimal Amount) : base(DeadLine, Description, Amount)
         {
             this.DeadLine = DeadLine;
             this.Description = Description;
             this.Amount = Amount;
+            this.ID = ID;
         }
         public static void Pay(Debt MyDebt, Balance Account)
         {
@@ -144,12 +178,14 @@ namespace Money
             Debt Debtcopy = (Debt)MyDebt.Clone();
             CopyDebts.Add(Debtcopy);
             Debts.Remove(MyDebt);
+            UpdateId();
         }
 
-        public static void CreateAndAdd(DateTime DeadLine, string Description, decimal Amount)
+        public static void CreateAndAdd(int ID, DateTime DeadLine, string Description, decimal Amount)
         {
-            Debt MyDebt = new Debt(DeadLine, Description, Amount);
+            Debt MyDebt = new Debt(ID, DeadLine, Description, Amount);
             Debts.Add(MyDebt);
+            UpdateId();
         }
         /// <summary>
         /// This method Pay all the debts 
@@ -163,70 +199,22 @@ namespace Money
                 Pay(X, Account);
             }
         }
-        public override void Undo(Balance Account)
+        public void Undo(Balance Account)
         {
             Debt MyDebt = CopyDebts[CopyDebts.Count - 1];
             Account.Amount += MyDebt.Amount;
             Debts.Add(MyDebt);
             CopyDebts.RemoveAt(CopyDebts.Count - 1);
+            UpdateId();
         }
-    }
-    public class Saving : Balance
-    {
-        public DateTime CreationDate { get; set; }
-        public string Description { get; set; }
-        public static List<Saving> Saves = new List<Saving>();
-        public static List<Saving> CopySaves = new List<Saving>();
-        public static decimal TotalSaves
+        public static void UpdateId()
         {
-            get
+            int Count = 1;
+            foreach(Debt a in Debts)
             {
-                return Saves.Select(x => x.Amount).Sum();
+                a.ID = Count;
+                Count++;
             }
-        }
-        public Saving(DateTime CreationDate, string Description, decimal Amount) : base(CreationDate, Description, Amount)
-        {
-            this.CreationDate = CreationDate;
-            this.Description = Description;
-            this.Amount = Amount;
-        }
-
-        public static void CreateAndAdd(DateTime CreationDate, string Description, decimal Amount, Balance Account)
-        {
-            Saving MySave = new Saving(CreationDate, Description, Amount);
-            Saves.Add(MySave);
-            Account.Amount -= MySave.Amount;
-        }
-        /// <summary>
-        /// Remove Method for make your saving part of your balance
-        /// </summary>
-        /// <param name="MySave"></param>
-        /// <param name="Account"></param>
-        public static void UseSaving(Saving MySave, Balance Account)
-        {
-            Saving CopySave = (Saving)MySave.Clone();
-            CopySaves.Add(CopySave);
-            Account.Amount += MySave.Amount;
-            Saves.Remove(MySave);
-        }
-        /// <summary>
-        /// This method make your savings part of your balance
-        /// I did a foreach because undo button will save someone from errors
-        /// </summary>
-        /// <param name="Account"> Account to change</param>
-        public static void UseAllSaving(Balance Account)
-        {
-            foreach( Saving X in Saves)
-            {
-                UseSaving(X, Account);
-            }
-        }
-        public override void Undo(Balance Account)
-        {
-            Saving MySave = CopySaves[CopySaves.Count - 1];
-            Account.Amount -= MySave.Amount;
-            Saves.Add(MySave);
-            CopySaves.RemoveAt(CopySaves.Count - 1);
         }
     }
 }

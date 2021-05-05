@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.IO;
 using System;
+using System.Threading;
 namespace DataAccess
 {
     public class JsonData
@@ -13,14 +14,10 @@ namespace DataAccess
         public decimal TotalBalance { get; set; }
         public decimal ActualDebt { get; set; }
         public decimal ActualSaves { get; set; }
+        private static string Json { get; set; }
 
-        public static string JsonDirectoryPath
-        {
-            get
-            {
-                return Path.Combine(Path.GetFullPath(@"UserData"), @"\User.json");
-            }
-        }
+        public static readonly string JsonDirectoryPath = @"C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\SavexUserData\User.json";
+
         /// <summary>
         /// This method checks if there is a json file, if it's not there then it create it
         /// and returns true to enter to the form to fill the Json.
@@ -47,8 +44,22 @@ namespace DataAccess
                 ActualSaves = 0,
                 ActualDebt = 0
             };
-            string Json = JsonConvert.SerializeObject(User, Formatting.Indented);
-            File.WriteAllText(JsonDirectoryPath, Json);
+
+            Json = JsonConvert.SerializeObject(User, Formatting.Indented);
+
+            for(int i = 1; i <= 3; i++)
+            {
+                try
+                {
+                    File.WriteAllText(JsonDirectoryPath, Json);
+                    break;
+                }
+                catch(IOException e) when (i <= 3)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+            
         }
         /// <summary>
         /// This method will be use to save the current information.
@@ -57,15 +68,44 @@ namespace DataAccess
         /// <param name="TotalDebts"> Total sum of all current Debts</param>
         /// <param name="TotalSaves"> Total sum of all current Saves</param>
         public static void UpdateJson(Balance Account, decimal TotalDebts, decimal TotalSaves)
-        {   
-            string Json = File.ReadAllText(JsonDirectoryPath);
+        {
+            
+            for (int i = 1; i <= 3; i++)
+            {
+                try
+                {
+                    using (StreamReader reader = new StreamReader(new FileStream(JsonDirectoryPath, FileMode.Open, FileAccess.Read, FileShare.Read)))
+                    {
+                        Json = reader.ReadToEnd();
+                    }
+                    break;
+                }
+                catch (IOException e) when (i <= 3)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
             JsonData User = JsonConvert.DeserializeObject<JsonData>(Json);
             User.Name = Account.Name;
             User.TotalBalance = Account.Amount;
             User.ActualSaves = TotalSaves;
             User.ActualDebt = TotalDebts;
             Json = JsonConvert.SerializeObject(User, Formatting.Indented);
-            File.WriteAllText(JsonDirectoryPath, Json);
+            for (int i = 1; i <= 3; i++)
+            {
+                try
+                {
+                    using(StreamWriter writer = new StreamWriter(new FileStream(JsonDirectoryPath, FileMode.Create, FileAccess.Write, FileShare.Read)))
+                    {
+                        writer.WriteLine(Json);
+                    }
+                    break;
+                }
+                catch (IOException e) when (i <= 3)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
         }
         /// <summary>
         /// This method Takes the info from the Json file if the file its created already. 
@@ -74,7 +114,18 @@ namespace DataAccess
         /// <param name="Account"> The User Account</param>
         public static void TakeInfo(Balance Account)
         {
-            string Json = File.ReadAllText(JsonDirectoryPath);
+            for (int i = 1; i <= 3; i++)
+            {
+                try
+                {
+                    Json = File.ReadAllText(JsonDirectoryPath);
+                    break;
+                }
+                catch (IOException e) when (i <= 3)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
             JsonData User = JsonConvert.DeserializeObject<JsonData>(Json);
             Account.Name = User.Name;
             Account.Amount = User.TotalBalance;
