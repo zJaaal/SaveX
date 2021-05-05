@@ -9,6 +9,7 @@
       "Test/1.0.0": {
         "dependencies": {
           "DataAccess": "1.0.0",
+          "Money": "1.0.0",
           "Newtonsoft.Json": "13.0.1",
           "System.Data.SQLite": "1.0.113.7"
         },

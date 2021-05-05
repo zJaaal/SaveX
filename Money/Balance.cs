@@ -6,7 +6,7 @@ namespace Money
     /// <summary>
     /// All the validations for Value >= 0 will be done in the forms
     /// </summary>
-    public abstract class Balance : ICloneable 
+    public class Balance : ICloneable 
     {
         /// <summary>
         /// Base class for all types of money
@@ -27,11 +27,6 @@ namespace Money
             this.Date = Date;
             this.Name = Name;
         }
-        /// <summary>
-        /// This method undo a removing error 
-        /// </summary>
-        /// <param name="Account"> Account being changed</param>
-        public abstract void Undo(Balance Account);
         /// <summary>
         /// This method remove and amount from balance if the one added was an error
         /// </summary>
@@ -88,23 +83,18 @@ namespace Money
     {
         public DateTime ExpenseDate { get; set; }
         public string Description  { get; set; }
-        public string Type 
-        { 
-            get 
-            {
-                return "Expense";
-            }
-        }
+        public int ID { get; set; }
         /// <summary>
         /// A list of expenses to send and recieve from the database
         /// </summary>
         public static List<Expense> Expenses = new List<Expense>();
         public static List<Expense> CopyExpenses = new List<Expense>();
-        public Expense(DateTime ExpenseDate, string Description, decimal Amount) : base(ExpenseDate, Description, Amount)
+        public Expense(int ID, DateTime ExpenseDate, string Description, decimal Amount) : base(ExpenseDate, Description, Amount)
         {
             this.ExpenseDate = ExpenseDate;
             this.Description = Description;
             this.Amount = Amount;
+            this.ID = ID;
         }
         /// <summary>
         /// This method create and add an expense to the list. Since it is an expense we need to subtract
@@ -114,11 +104,12 @@ namespace Money
         /// <param name="Description">What we bought or pay</param>
         /// <param name="Amount"> The total amount</param>
         /// <param name="Account"> The Account where we will subtract</param>
-        public static void CreateAndAdd(DateTime ExpenseDate, string Description, decimal Amount, Balance Account)
+        public static void CreateAndAdd(int ID, DateTime ExpenseDate, string Description, decimal Amount, Balance Account)
         {
-            Expense MyExpense = new Expense(ExpenseDate, Description, Amount);
+            Expense MyExpense = new Expense(ID, ExpenseDate, Description, Amount);
             Account.Amount -= MyExpense.Amount;
             Expenses.Add(MyExpense);
+            UpdateId();
         }
         /// <summary>
         /// This method creates a copy of the Expense then we will add it to a copy list
@@ -133,6 +124,7 @@ namespace Money
             CopyExpenses.Add(Copy);
             Account.Amount += MyExpense.Amount;
             Expenses.Remove(MyExpense);
+            UpdateId();
         }
         /// <summary>
         /// This methods undo the remove action
@@ -141,27 +133,31 @@ namespace Money
         /// Therefore it the copy to the main list and delete it from the copy list
         /// </summary>
         /// <param name="Account"> The account we are changing </param>
-        public override void Undo(Balance Account)
+        public void Undo(Balance Account)
         {
             Expense MyExpense = CopyExpenses[CopyExpenses.Count - 1];
             Account.Amount -= MyExpense.Amount;
             Expenses.Add(MyExpense);
             CopyExpenses.RemoveAt(CopyExpenses.Count - 1);
+            UpdateId();
+        }
+        private static void UpdateId()
+        {
+            int Count = 1;
+            foreach(Expense a in Expenses)
+            {
+                a.ID = Count;
+                Count++;
+            }
         }
     }
     public class Debt : Balance
     {
         public DateTime DeadLine { get; set; }
         public string Description { get; set; }
+        public int ID { get; set; }
         public static List<Debt> Debts = new List<Debt>();
         public static List<Debt> CopyDebts = new List<Debt>();
-        public string Type
-        {
-            get
-            {
-                return "Debt";
-            }
-        }
         public static decimal TotalDebts
         {
             get
@@ -169,11 +165,12 @@ namespace Money
                 return Debts.Select(x => x.Amount).Sum();
             }
         }
-        public Debt(DateTime DeadLine, string Description, decimal Amount) : base(DeadLine, Description, Amount)
+        public Debt(int ID, DateTime DeadLine, string Description, decimal Amount) : base(DeadLine, Description, Amount)
         {
             this.DeadLine = DeadLine;
             this.Description = Description;
             this.Amount = Amount;
+            this.ID = ID;
         }
         public static void Pay(Debt MyDebt, Balance Account)
         {
@@ -181,12 +178,14 @@ namespace Money
             Debt Debtcopy = (Debt)MyDebt.Clone();
             CopyDebts.Add(Debtcopy);
             Debts.Remove(MyDebt);
+            UpdateId();
         }
 
-        public static void CreateAndAdd(DateTime DeadLine, string Description, decimal Amount)
+        public static void CreateAndAdd(int ID, DateTime DeadLine, string Description, decimal Amount)
         {
-            Debt MyDebt = new Debt(DeadLine, Description, Amount);
+            Debt MyDebt = new Debt(ID, DeadLine, Description, Amount);
             Debts.Add(MyDebt);
+            UpdateId();
         }
         /// <summary>
         /// This method Pay all the debts 
@@ -200,12 +199,22 @@ namespace Money
                 Pay(X, Account);
             }
         }
-        public override void Undo(Balance Account)
+        public void Undo(Balance Account)
         {
             Debt MyDebt = CopyDebts[CopyDebts.Count - 1];
             Account.Amount += MyDebt.Amount;
             Debts.Add(MyDebt);
             CopyDebts.RemoveAt(CopyDebts.Count - 1);
+            UpdateId();
+        }
+        public static void UpdateId()
+        {
+            int Count = 1;
+            foreach(Debt a in Debts)
+            {
+                a.ID = Count;
+                Count++;
+            }
         }
     }
 }

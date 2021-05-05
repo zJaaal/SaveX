@@ -1218,6 +1218,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "DataAccess >= 1.0.0",
+      "Money >= 1.0.0",
       "Newtonsoft.Json >= 13.0.1",
       "System.Data.SQLite >= 1.0.113.7"
     ]
@@ -1250,6 +1251,9 @@
           "projectReferences": {
             "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\DataAccess\\DataAccess.csproj": {
               "projectPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\DataAccess\\DataAccess.csproj"
+            },
+            "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Money\\Money.csproj": {
+              "projectPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Money\\Money.csproj"
             }
           }
         }
