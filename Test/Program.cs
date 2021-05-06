@@ -1,6 +1,8 @@
 ﻿using System;
 using DataAccess;
 using Money;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Test
 {              /* ## BUG ##
@@ -8,10 +10,13 @@ namespace Test
                   changes are not saved (json is empty).
                   But when I do a second test (File already exist) the changes are saved (json filled with current info)
                     
-                 ## Solution##
+                 ## Solution ##
                 * Include the file in the repository.
                 * Or keep searching for solutions
                 */
+
+                // SQLiteDataBase class was hard to debug. Data Base topic its my weakness.
+                // I tested Expenses and Debts. It works perfectly.
     class Program
     {
         /// <summary>
@@ -20,39 +25,73 @@ namespace Test
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            decimal MyBalance = 2000.00m;
-            Balance User = new Balance(DateTime.Now, "Jalinson Diaz", MyBalance); // Initialize a Balance Object
+            if (SQLiteDataBase.CreateDataBase()) // This scope simulates the first time that the user opens the app
+            {
+                Debt.Debts.AddRange(
+               new[]
+               {
+                    new Debt(1,DateTime.Now.Date, "Redmi Note 10 ", 240m),
+                    new Debt(2,DateTime.Now.Date, "Glass for Redmi ", 5m),
+                    new Debt(3,DateTime.Now.Date, "Asus ZenBook ", 850m),
+                    new Debt(4,DateTime.Now.Date, "Xiaomi Router ", 45m),
+                    new Debt(5,DateTime.Now.Date, "Case for MyPhone ", 25m)
+               });
+                SQLiteDataBase.CreateTables();
+                SQLiteDataBase.InsertOrUpdateExpenses(Expense.Expenses);
+                Expense.Expenses.Clear();
+            }
+            
+            SQLiteDataBase.TakeAllDebts(Debt.Debts); //Download from DataBase
+            PrintDebt(Debt.Debts);
+            Console.WriteLine();
+            Console.WriteLine("Your total debt is: " + Debt.TotalDebts.ToString());
 
-            Console.WriteLine("Json file doesn't exist : " + JsonData.CreateJson()); // Create User.json
+            Debt.CreateAndAdd(1, DateTime.Now.Date, "Aerobed ", 300m); // Create and add to Local List Debts
 
-            Console.WriteLine("SQLite file doesn't exist : " + SQLiteDataBase.CreateDataBase()); // Create UserData.sqlite
+            Console.WriteLine();
+            PrintDebt(Debt.Debts);
 
-            SQLiteDataBase.CreateTables(); // Create Expenses and Debts tables
+            Console.WriteLine();
+            PrintBalance(User);
 
-            JsonData.FillJson(User); // Fill json with User object
+            Console.WriteLine(); // Pay Button simulation
+            SQLiteDataBase.DeleteDebt(Debt.Debts[3]); // Delete "Xiaomi Router" since...
+            Debt.Pay(Debt.Debts[3], User);// ...We paid that debt
+            PrintDebt(Debt.Debts);
+            Console.WriteLine();
 
-            User.Name = "Diego Garcia"; // Changed Name to "Diego Garcia"
-            Console.WriteLine("User name = "+User.Name); // Print to confirm
-            Console.WriteLine("User name in Json file = Jalinson Diaz");
+            PrintBalance(User);
+            Console.WriteLine();
 
-            JsonData.TakeInfo(User); // Update Object info to Json Info from "Diego Garcia" to "Jalinson Diaz"
-            Console.WriteLine("Object has been updated from Json File");
-            Console.WriteLine("User name = " + User.Name); // Print to confirm is updated
+            Debt.Undo(User); // Undo button simulation
+            SQLiteDataBase.InsertOrUpdateDebts(Debt.Debts); // Save changes (Added Aerobed and Re-added Xiaomi Router)
+            Console.WriteLine();
 
-            User.Name = "Yolima Carruyo"; // Changed name to "Yolima Carruyo"(On json its "Jalinson Diaz")
-            Console.WriteLine("User name = " + User.Name);
-            JsonData.UpdateJson(User, 20000.00m, 32990.3m); // Update the information on User.json
-            Console.WriteLine("Json file has been updated with the current data");
+            Debt.Debts.Clear();
+            SQLiteDataBase.TakeAllDebts(Debt.Debts); // Verificate that this is working 
+            PrintDebt(Debt.Debts);
+            Console.WriteLine();
 
-            User.Name = "Jalinson Diaz"; // Changed name to "Jalinson Diaz" (On json its "Yolima Carruyo")
-            Console.WriteLine("User name = " + User.Name); // Print to confirm
-            Console.WriteLine("User name in Json file = Yolima Carruyo");
+            PrintBalance(User);
 
-            JsonData.TakeInfo(User); // Update object name to "Yolima Carruyo"
-            Console.WriteLine("Object has been updated to Json file data");
-            Console.WriteLine("User name = " + User.Name); // Print to confirm
+            Console.ReadKey();
+        }
 
-            Console.ReadKey(); 
+        static Balance User = new Balance(DateTime.Today, "Jalinson Diaz", 30000m);
+
+        private static void PrintDebt(List<Debt> MyList)
+        {
+            foreach (Debt X in MyList)
+                Console.WriteLine(X.ID.ToString() + " | " + X.Description + " | " + X.Amount.ToString() + "$" + " | " + X.DeadLine.ToString());
+        }
+        private static void PrintExpense(List<Expense> MyList)
+        {
+            foreach (Expense X in MyList)
+                Console.WriteLine(X.ID.ToString() + " | " + X.Description + " | " + X.Amount.ToString()+"$"+" | " + X.Date.ToString());
+        }
+        private static void PrintBalance(Balance User)
+        {
+            Console.WriteLine("Your actual balance is: " + User.Amount.ToString());
         }
     }
 }

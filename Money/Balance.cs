@@ -133,7 +133,7 @@ namespace Money
         /// Therefore it the copy to the main list and delete it from the copy list
         /// </summary>
         /// <param name="Account"> The account we are changing </param>
-        public void Undo(Balance Account)
+        public static void Undo(Balance Account)
         {
             Expense MyExpense = CopyExpenses[CopyExpenses.Count - 1];
             Account.Amount -= MyExpense.Amount;
@@ -187,19 +187,7 @@ namespace Money
             Debts.Add(MyDebt);
             UpdateId();
         }
-        /// <summary>
-        /// This method Pay all the debts 
-        /// I did a foreach because undo button will save someone from errors
-        /// </summary>
-        /// <param name="Account"> Account to change</param>
-        public static void PayAll(Balance Account)
-        {
-            foreach(Debt X in Debts)
-            {
-                Pay(X, Account);
-            }
-        }
-        public void Undo(Balance Account)
+        public static void Undo(Balance Account)
         {
             Debt MyDebt = CopyDebts[CopyDebts.Count - 1];
             Account.Amount += MyDebt.Amount;
