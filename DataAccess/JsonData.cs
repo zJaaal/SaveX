@@ -14,19 +14,21 @@ namespace DataAccess
         public decimal TotalBalance { get; set; }
         public decimal ActualDebt { get; set; }
         public decimal ActualSaves { get; set; }
+        public string Currency { get; set; }
         private static string Json { get; set; }
 
         public static readonly string JsonDirectoryPath = @"C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\SavexUserData\User.json";
 
         /// <summary>
-        /// This method checks if there is a json file, if it's not there then it create it
-        /// and returns true to enter to the form to fill the Json.
+        /// This method checks if the json file is filled, if it's not it returns true
+        /// and it returns false if it's filled.
         /// </summary>
-        public static bool CreateJson()
+        public static bool ReadJson()
         {
-            if (!File.Exists(JsonDirectoryPath))
+            Json = File.ReadAllText(JsonDirectoryPath);
+
+            if (Json.Length == 0)
             {
-                File.Create(JsonDirectoryPath);
                 return true;
             }
             return false;
@@ -35,14 +37,15 @@ namespace DataAccess
         /// This method fill the Json if it's the first time we open the App.
         /// </summary>
         /// <param name="Account"> This is the Balance object that I Created at the First form to use the information of the user.</param>
-        public static void FillJson(Balance Account)
+        public static void FillJson(Balance Account, decimal MySave, string MyCurrency)
         {
             JsonData User = new JsonData
             {
                 Name = Account.Name,
                 TotalBalance = Account.Amount,
-                ActualSaves = 0,
-                ActualDebt = 0
+                ActualSaves = MySave,
+                ActualDebt = 0m,
+                Currency = MyCurrency
             };
 
             Json = JsonConvert.SerializeObject(User, Formatting.Indented);
@@ -54,7 +57,7 @@ namespace DataAccess
                     File.WriteAllText(JsonDirectoryPath, Json);
                     break;
                 }
-                catch(IOException e) when (i <= 3)
+                catch(IOException) when (i <= 3)
                 {
                     Thread.Sleep(1000);
                 }
@@ -66,7 +69,7 @@ namespace DataAccess
         /// </summary>
         /// <param name="Account"> The current Account</param>
         /// <param name="TotalDebts"> Total sum of all current Debts</param>
-        /// <param name="TotalSaves"> Total sum of all current Saves</param>
+        /// <param name="TotalSaves"> Total Saves</param>
         public static void UpdateJson(Balance Account, decimal TotalDebts, decimal TotalSaves)
         {
             
@@ -80,7 +83,7 @@ namespace DataAccess
                     }
                     break;
                 }
-                catch (IOException e) when (i <= 3)
+                catch (IOException) when (i <= 3)
                 {
                     Thread.Sleep(1000);
                 }
@@ -101,7 +104,7 @@ namespace DataAccess
                     }
                     break;
                 }
-                catch (IOException e) when (i <= 3)
+                catch (IOException) when (i <= 3)
                 {
                     Thread.Sleep(1000);
                 }
@@ -112,7 +115,7 @@ namespace DataAccess
         /// (CreateJson() returns false)
         /// </summary>
         /// <param name="Account"> The User Account</param>
-        public static void TakeInfo(Balance Account)
+        public static void TakeInfo(Balance Account, decimal MySave, decimal MyDebt, string MyCurrency)
         {
             for (int i = 1; i <= 3; i++)
             {
@@ -121,7 +124,7 @@ namespace DataAccess
                     Json = File.ReadAllText(JsonDirectoryPath);
                     break;
                 }
-                catch (IOException e) when (i <= 3)
+                catch (IOException) when (i <= 3)
                 {
                     Thread.Sleep(1000);
                 }
@@ -130,6 +133,9 @@ namespace DataAccess
             Account.Name = User.Name;
             Account.Amount = User.TotalBalance;
             Account.Date = DateTime.Now;
+            MySave = User.ActualSaves;
+            MyDebt = User.ActualDebt;
+            MyCurrency = User.Currency;
         }
     }
 }

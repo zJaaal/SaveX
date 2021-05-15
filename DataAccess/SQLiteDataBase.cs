@@ -72,7 +72,6 @@ namespace DataAccess
 
                 SQLiteCommand InsertCom = new SQLiteCommand(Insert, con);
                 SQLiteCommand UpdateCom = new SQLiteCommand(Update, con);
-
                 foreach (Debt MyDebt in LDebt)
                 {
 

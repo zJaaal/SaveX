@@ -27,6 +27,7 @@ namespace Money
             this.Date = Date;
             this.Name = Name;
         }
+        public Balance() { }
         /// <summary>
         /// This method remove and amount from balance if the one added was an error
         /// </summary>
