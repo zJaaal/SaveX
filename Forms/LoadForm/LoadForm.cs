@@ -1,8 +1,8 @@
-﻿using System;
+﻿using DataAccess;
+using Money;
+using System;
 using System.Threading;
 using System.Windows.Forms;
-using DataAccess;
-using Money;
 
 namespace Forms
 {
@@ -45,7 +45,13 @@ namespace Forms
                 else
                 {
                     ReportLb.Text = "Charging Data...";
-                    JsonData.TakeInfo(UserCache.Account, UserCache.MySave, UserCache.MyDebt, UserCache.Currency);
+                    JsonData User = JsonData.TakeInfo();
+                    UserCache.Account.Name = User.Name;
+                    UserCache.Account.Amount = User.TotalBalance;
+                    UserCache.Account.Date = DateTime.Now;
+                    UserCache.MySave = User.ActualSaves;
+                    UserCache.MyDebt = User.ActualDebt;
+                    UserCache.Currency = User.Currency;
                     progressBar1.Value = 30;
                     Application.DoEvents();
                     Thread.Sleep(1000);

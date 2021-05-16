@@ -6,7 +6,7 @@ namespace Money
     /// <summary>
     /// All the validations for Value >= 0 will be done in the forms
     /// </summary>
-    public class Balance : ICloneable 
+    public class Balance : ICloneable
     {
         /// <summary>
         /// Base class for all types of money
@@ -21,7 +21,7 @@ namespace Money
         /// <param name="Date"> The date of creation, dead line or date of expense</param>
         /// <param name="Name">  The name of the account or the description of the Expense or Debt</param>
         /// <param name="Amount">The Amount of the saving,expense or debt</param>
-        public Balance(DateTime Date, string Name,decimal Amount)
+        public Balance(DateTime Date, string Name, decimal Amount)
         {
             this.Amount = Amount;
             this.Date = Date;
@@ -64,7 +64,7 @@ namespace Money
         /// <param name="Amount"> The amount to be added</param>
         /// <param name="balance"> The Account we are going to add the amount</param>
         public static void AddBalance(decimal Amount, Balance balance) => balance.Amount += Amount;
-       
+
         /// <summary>
         /// Clone method to create an Undo button. I added a List of copies for each type of balance
         /// </summary>
@@ -83,7 +83,7 @@ namespace Money
     public class Expense : Balance
     {
         public DateTime ExpenseDate { get; set; }
-        public string Description  { get; set; }
+        public string Description { get; set; }
         public int ID { get; set; }
         /// <summary>
         /// A list of expenses to send and recieve from the database
@@ -145,7 +145,7 @@ namespace Money
         private static void UpdateId()
         {
             int Count = 1;
-            foreach(Expense a in Expenses)
+            foreach (Expense a in Expenses)
             {
                 a.ID = Count;
                 Count++;
@@ -199,7 +199,7 @@ namespace Money
         public static void UpdateId()
         {
             int Count = 1;
-            foreach(Debt a in Debts)
+            foreach (Debt a in Debts)
             {
                 a.ID = Count;
                 Count++;

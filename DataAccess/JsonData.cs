@@ -1,7 +1,7 @@
 ﻿using Money;
 using Newtonsoft.Json;
-using System.IO;
 using System;
+using System.IO;
 using System.Threading;
 namespace DataAccess
 {
@@ -50,19 +50,19 @@ namespace DataAccess
 
             Json = JsonConvert.SerializeObject(User, Formatting.Indented);
 
-            for(int i = 1; i <= 3; i++)
+            for (int i = 1; i <= 3; i++)
             {
                 try
                 {
                     File.WriteAllText(JsonDirectoryPath, Json);
                     break;
                 }
-                catch(IOException) when (i <= 3)
+                catch (IOException) when (i <= 3)
                 {
                     Thread.Sleep(1000);
                 }
             }
-            
+
         }
         /// <summary>
         /// This method will be use to save the current information.
@@ -72,7 +72,7 @@ namespace DataAccess
         /// <param name="TotalSaves"> Total Saves</param>
         public static void UpdateJson(Balance Account, decimal TotalDebts, decimal TotalSaves)
         {
-            
+
             for (int i = 1; i <= 3; i++)
             {
                 try
@@ -98,7 +98,7 @@ namespace DataAccess
             {
                 try
                 {
-                    using(StreamWriter writer = new StreamWriter(new FileStream(JsonDirectoryPath, FileMode.Create, FileAccess.Write, FileShare.Read)))
+                    using (StreamWriter writer = new StreamWriter(new FileStream(JsonDirectoryPath, FileMode.Create, FileAccess.Write, FileShare.Read)))
                     {
                         writer.WriteLine(Json);
                     }
@@ -115,7 +115,7 @@ namespace DataAccess
         /// (CreateJson() returns false)
         /// </summary>
         /// <param name="Account"> The User Account</param>
-        public static void TakeInfo(Balance Account, decimal MySave, decimal MyDebt, string MyCurrency)
+        public static JsonData TakeInfo()
         {
             for (int i = 1; i <= 3; i++)
             {
@@ -130,12 +130,7 @@ namespace DataAccess
                 }
             }
             JsonData User = JsonConvert.DeserializeObject<JsonData>(Json);
-            Account.Name = User.Name;
-            Account.Amount = User.TotalBalance;
-            Account.Date = DateTime.Now;
-            MySave = User.ActualSaves;
-            MyDebt = User.ActualDebt;
-            MyCurrency = User.Currency;
+            return User;
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Data.SQLite;
-using Money;
+﻿using Money;
 using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using System.IO;
 
 namespace DataAccess
 {
@@ -17,7 +17,7 @@ namespace DataAccess
         {
             if (!File.Exists(SQLDirectory))
             {
-                 SQLiteConnection.CreateFile(SQLDirectory);
+                SQLiteConnection.CreateFile(SQLDirectory);
                 return true;
             }
             return false;
@@ -168,11 +168,11 @@ namespace DataAccess
             using (var con = new SQLiteConnection("Data Source =" + SQLDirectory))
             {
                 con.Open();
-                string Command = $"DELETE FROM Debts WHERE ID="+MyDebt.ID+"";
+                string Command = $"DELETE FROM Debts WHERE ID=" + MyDebt.ID + "";
                 SQLiteCommand Delete = new SQLiteCommand(Command, con);
                 Delete.ExecuteNonQuery();
                 con.Close();
-                
+
             }
         }
 
@@ -185,7 +185,7 @@ namespace DataAccess
         {
             using (var con = new SQLiteConnection("Data Source =" + SQLDirectory))
             {
-                
+
 
                 string Insert = $"INSERT INTO Expenses (ID, DateTime, Description, Amount) " +
                                 $"VALUES (@ID,@DT,@DES,@AMO)";
@@ -198,13 +198,13 @@ namespace DataAccess
 
                 foreach (Expense MyExpense in LExpense)
                 {
-                    
+
 
                     InsertCom.Parameters.Add("@ID", System.Data.DbType.Int32).Value = MyExpense.ID;
                     InsertCom.Parameters.Add("@DT", System.Data.DbType.String).Value = MyExpense.Date.ToString();
                     InsertCom.Parameters.Add("@DES", System.Data.DbType.String).Value = MyExpense.Description;
                     InsertCom.Parameters.Add("@AMO", System.Data.DbType.Decimal).Value = MyExpense.Amount;
-                   
+
                     UpdateCom.Parameters.Add("@ID", System.Data.DbType.Int32).Value = MyExpense.ID;
                     UpdateCom.Parameters.Add("@DT", System.Data.DbType.String).Value = MyExpense.Date.ToString();
                     UpdateCom.Parameters.Add("@DES", System.Data.DbType.String).Value = MyExpense.Description;
@@ -231,7 +231,7 @@ namespace DataAccess
             {
                 con.Open();
                 string Command = $"SELECT ID, DateTime, Description, Amount " +
-                                 $"FROM Expenses WHERE ID =" +MyExpense.ID;
+                                 $"FROM Expenses WHERE ID =" + MyExpense.ID;
 
                 SQLiteCommand Search = new SQLiteCommand(Command, con);
 
@@ -241,10 +241,10 @@ namespace DataAccess
                     {
                         Reader.Close();
                         con.Close();
-                        
+
                         return true;
                     }
-                    
+
                     Reader.Close();
                     con.Close();
 
@@ -265,9 +265,9 @@ namespace DataAccess
                     while (Reader.Read())
                     {
 
-                        LExpenses.Add(new Expense(Reader.GetInt32(0), 
-                                                  DateTime.Parse(Reader.GetString(1)), 
-                                                  Reader.GetString(2), 
+                        LExpenses.Add(new Expense(Reader.GetInt32(0),
+                                                  DateTime.Parse(Reader.GetString(1)),
+                                                  Reader.GetString(2),
                                                   Reader.GetDecimal(3)));
                     }
                     con.Close();

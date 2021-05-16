@@ -1,6 +1,7 @@
-﻿using System;
+﻿using DataAccess;
+using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using DataAccess;
 
 namespace Forms
 {
@@ -10,6 +11,14 @@ namespace Forms
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// This lines are for dragging the form.
+        /// </summary>
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(IntPtr hwnd, int wmsg, int wparam, int lparam);
 
         private void ExitBtn_Click(object sender, EventArgs e)
         {
@@ -23,8 +32,8 @@ namespace Forms
 
         private void NameTbox_MouseDown(object sender, MouseEventArgs e)
         {
-            if(NameTBox.Text == "Ex: Josh")
-            NameTBox.Text = "";
+            if (NameTBox.Text == "Ex: Josh")
+                NameTBox.Text = "";
         }
 
         private void LastNameTbox_MouseDown(object sender, MouseEventArgs e)
@@ -46,7 +55,7 @@ namespace Forms
         }
         private void CurrencyTBox_MouseDown(object sender, MouseEventArgs e)
         {
-            if (CurrencyTBox.Text == "Ex: USD")
+            if (CurrencyTBox.Text == "Ex: USD, EUR, BTC")
                 CurrencyTBox.Text = "";
         }
 
@@ -55,31 +64,37 @@ namespace Forms
             decimal MyBalance;
             decimal MySave;
 
-            if (!decimal.TryParse(BalanceTBox.Text, out MyBalance))
-            {
-                MessageBox.Show("Balance field it's not valid");
-                BalanceTBox.Text = "";
-                return;
-            }
-            if (!decimal.TryParse(SaveTBox.Text, out MySave))
-            {
-                MessageBox.Show("Actual Save Field it's not valid");
-                SaveTBox.Text = "";
-                return;
-            }
-            if(!(IsLetters(NameTBox.Text) || 
-                IsLetters(LastNameTBox.Text) ||
-                IsLetters(CurrencyTBox.Text)))
-            {
-                MessageBox.Show("Some fields are invalid");
-                return;
-            }
-
-            if (!(string.IsNullOrWhiteSpace(NameTBox.Text) ||
+            if ((string.IsNullOrWhiteSpace(NameTBox.Text) ||
                   string.IsNullOrWhiteSpace(LastNameTBox.Text) ||
                   string.IsNullOrWhiteSpace(BalanceTBox.Text) ||
-                  string.IsNullOrWhiteSpace(SaveTBox.Text)||
+                  string.IsNullOrWhiteSpace(SaveTBox.Text) ||
                   string.IsNullOrWhiteSpace(CurrencyTBox.Text)))
+            {
+                MessageBox.Show("Some fields may be empty.");
+                return;
+            }
+            else if (NameTBox.Text == "Ex: Josh" ||
+                    LastNameTBox.Text == "Ex: Swain" ||
+                    SaveTBox.Text == "Ex: 1500" ||
+                    BalanceTBox.Text == "Ex: 1000" ||
+                    CurrencyTBox.Text == "Ex: USD, EUR, BTC")
+            {
+                MessageBox.Show("Some fields are filled with examples.");
+                return;
+            }
+            else if (!(CheckString(NameTBox.Text) ||
+                CheckString(LastNameTBox.Text) ||
+                CheckString(CurrencyTBox.Text)))
+            {
+                MessageBox.Show("Some fields may be invalid.");
+                return;
+            }
+            else if (!decimal.TryParse(BalanceTBox.Text, out MyBalance) || !decimal.TryParse(SaveTBox.Text, out MySave))
+            {
+                MessageBox.Show("Numeric fields may be invalid.");
+                return;
+            }
+            else
             {
                 UserCache.Account.Amount = MyBalance;
                 UserCache.Account.Name = NameTBox.Text + " " + LastNameTBox.Text;
@@ -88,22 +103,10 @@ namespace Forms
                 UserCache.Currency = CurrencyTBox.Text;
 
                 JsonData.FillJson(UserCache.Account, UserCache.MySave, UserCache.Currency);
-                MessageBox.Show("Data has been saved");
+                MessageBox.Show("Data has been saved.");
                 this.Hide();
                 MainForm Main = new MainForm();
                 Main.Show();
-            }
-            else if (NameTBox.Text == "Ex: Josh" ||
-                    LastNameTBox.Text == "Ex: Swain" ||
-                    SaveTBox.Text == "Ex: 1500" ||
-                    BalanceTBox.Text == "Ex: 1000" ||
-                    CurrencyTBox.Text == "Ex: USD")
-                 {
-                MessageBox.Show("Some fields are not filled");
-                 }       
-            else
-            {
-                MessageBox.Show("Some fields are empty or null");
             }
         }
         /// <summary>
@@ -111,14 +114,24 @@ namespace Forms
         /// </summary>
         /// <param name="MyString"></param>
         /// <returns></returns>
-        private bool IsLetters(string MyString)
+        private bool CheckString(string MyString)
         {
-            foreach(char a in MyString)
+            foreach (char a in MyString)
             {
                 if (!Char.IsLetter(a))
                     return false;
             }
             return true;
+        }
+        /// <summary>
+        /// Form dragging event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Body_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
     }
 }

@@ -116,6 +116,7 @@
             this.Body.Name = "Body";
             this.Body.Size = new System.Drawing.Size(259, 452);
             this.Body.TabIndex = 0;
+            this.Body.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Body_MouseDown);
             // 
             // CurrencyLb
             // 
@@ -140,7 +141,7 @@
             this.CurrencyTBox.Name = "CurrencyTBox";
             this.CurrencyTBox.Size = new System.Drawing.Size(175, 22);
             this.CurrencyTBox.TabIndex = 6;
-            this.CurrencyTBox.Text = "Ex: USD";
+            this.CurrencyTBox.Text = "Ex: USD, EUR, BTC";
             this.CurrencyTBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CurrencyTBox_MouseDown);
             // 
             // SumbitbBtn
