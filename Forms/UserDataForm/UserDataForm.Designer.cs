@@ -75,7 +75,7 @@
             // 
             this.TitleLb.AutoSize = true;
             this.TitleLb.Font = new System.Drawing.Font("HoloLens MDL2 Assets", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TitleLb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(198)))), ((int)(((byte)(10)))));
+            this.TitleLb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(238)))), ((int)(((byte)(151)))));
             this.TitleLb.Location = new System.Drawing.Point(15, 32);
             this.TitleLb.Name = "TitleLb";
             this.TitleLb.Size = new System.Drawing.Size(97, 37);

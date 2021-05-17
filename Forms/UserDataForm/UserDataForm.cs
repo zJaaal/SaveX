@@ -58,7 +58,11 @@ namespace Forms
             if (CurrencyTBox.Text == "Ex: USD, EUR, BTC")
                 CurrencyTBox.Text = "";
         }
-
+        /// <summary>
+        /// This event validates all fields before Json is filled.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SumbitbBtn_Click(object sender, EventArgs e)
         {
             decimal MyBalance;
@@ -70,7 +74,7 @@ namespace Forms
                   string.IsNullOrWhiteSpace(SaveTBox.Text) ||
                   string.IsNullOrWhiteSpace(CurrencyTBox.Text)))
             {
-                MessageBox.Show("Some fields may be empty.");
+                MessageBox.Show("Some fields may be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else if (NameTBox.Text == "Ex: Josh" ||
@@ -79,19 +83,20 @@ namespace Forms
                     BalanceTBox.Text == "Ex: 1000" ||
                     CurrencyTBox.Text == "Ex: USD, EUR, BTC")
             {
-                MessageBox.Show("Some fields are filled with examples.");
+                MessageBox.Show("Some fields are filled with examples.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else if (!(CheckString(NameTBox.Text) ||
                 CheckString(LastNameTBox.Text) ||
                 CheckString(CurrencyTBox.Text)))
             {
-                MessageBox.Show("Some fields may be invalid.");
+                MessageBox.Show("Some fields may be invalid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (!decimal.TryParse(BalanceTBox.Text, out MyBalance) || !decimal.TryParse(SaveTBox.Text, out MySave))
+            else if (!decimal.TryParse(BalanceTBox.Text, out MyBalance) || !decimal.TryParse(SaveTBox.Text, out MySave) ||
+                      MyBalance < 0 || MySave < 0)
             {
-                MessageBox.Show("Numeric fields may be invalid.");
+                MessageBox.Show("Numeric fields may be invalid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -99,10 +104,10 @@ namespace Forms
                 UserCache.Account.Amount = MyBalance;
                 UserCache.Account.Name = NameTBox.Text + " " + LastNameTBox.Text;
                 UserCache.Account.Date = DateTime.Now.Date;
-                UserCache.MySave = MySave;
+                UserCache.Account.Saves= MySave;
                 UserCache.Currency = CurrencyTBox.Text;
 
-                JsonData.FillJson(UserCache.Account, UserCache.MySave, UserCache.Currency);
+                JsonData.FillJson(UserCache.Account, UserCache.Currency);
                 MessageBox.Show("Data has been saved.");
                 this.Hide();
                 MainForm Main = new MainForm();
@@ -114,7 +119,7 @@ namespace Forms
         /// </summary>
         /// <param name="MyString"></param>
         /// <returns></returns>
-        private bool CheckString(string MyString)
+        public bool CheckString(string MyString)
         {
             foreach (char a in MyString)
             {

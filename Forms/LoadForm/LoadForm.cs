@@ -13,6 +13,15 @@ namespace Forms
             InitializeComponent();
             ReportLb.Text = "Validating Files...";
         }
+        /// <summary>
+        /// This event verificates if the Json is filled or not, if it's not that means that this
+        /// is the first time the user opens the app. So, the Data Base is created and its tables.
+        /// Therefore the UserDataForm is opened.
+        /// 
+        /// If the Json file is filled.It just downloads the data and opens the app.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoadForm_Shown(object sender, EventArgs e)
         {
             try
@@ -49,8 +58,8 @@ namespace Forms
                     UserCache.Account.Name = User.Name;
                     UserCache.Account.Amount = User.TotalBalance;
                     UserCache.Account.Date = DateTime.Now;
-                    UserCache.MySave = User.ActualSaves;
-                    UserCache.MyDebt = User.ActualDebt;
+                    UserCache.Account.Saves = User.ActualSaves;
+                    UserCache.TotalDebt = User.ActualDebt;
                     UserCache.Currency = User.Currency;
                     progressBar1.Value = 30;
                     Application.DoEvents();

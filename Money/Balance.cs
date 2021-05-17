@@ -33,16 +33,16 @@ namespace Money
         /// </summary>
         /// <param name="Balance"> Account to being corrected</param>
         /// <param name="Amount"> Amount to be removing</param>
-        public static void RemoveError(Balance Balance, decimal Amount)
+        public static void RemoveError(decimal Amount, Balance Balance)
         {
             Balance.Amount -= Amount;
         }
         /// <summary>
-        /// To use an amount for a debt or a expense
+        /// To Withdraw saving and use it for a debt or expense.
         /// </summary>
         /// <param name="Amount"></param>
         /// <param name="Account"></param>
-        public static void UseSaving(decimal Amount, Balance Account)
+        public static void WithdrawSaving(decimal Amount, Balance Account)
         {
             Account.Amount += Amount;
             Account.Saves -= Amount;
@@ -85,6 +85,13 @@ namespace Money
         public DateTime ExpenseDate { get; set; }
         public string Description { get; set; }
         public int ID { get; set; }
+        public static decimal TotalExpenses
+        {
+            get
+            {
+                return Expenses.Select(x => x.Amount).Sum();
+            }
+        }
         /// <summary>
         /// A list of expenses to send and recieve from the database
         /// </summary>

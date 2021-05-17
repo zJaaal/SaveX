@@ -37,13 +37,13 @@ namespace DataAccess
         /// This method fill the Json if it's the first time we open the App.
         /// </summary>
         /// <param name="Account"> This is the Balance object that I Created at the First form to use the information of the user.</param>
-        public static void FillJson(Balance Account, decimal MySave, string MyCurrency)
+        public static void FillJson(Balance Account, string MyCurrency)
         {
             JsonData User = new JsonData
             {
                 Name = Account.Name,
                 TotalBalance = Account.Amount,
-                ActualSaves = MySave,
+                ActualSaves = Account.Saves,
                 ActualDebt = 0m,
                 Currency = MyCurrency
             };
@@ -70,7 +70,7 @@ namespace DataAccess
         /// <param name="Account"> The current Account</param>
         /// <param name="TotalDebts"> Total sum of all current Debts</param>
         /// <param name="TotalSaves"> Total Saves</param>
-        public static void UpdateJson(Balance Account, decimal TotalDebts, decimal TotalSaves)
+        public static void UpdateJson(Balance Account, decimal TotalDebts)
         {
 
             for (int i = 1; i <= 3; i++)
@@ -91,7 +91,7 @@ namespace DataAccess
             JsonData User = JsonConvert.DeserializeObject<JsonData>(Json);
             User.Name = Account.Name;
             User.TotalBalance = Account.Amount;
-            User.ActualSaves = TotalSaves;
+            User.ActualSaves = Account.Saves;
             User.ActualDebt = TotalDebts;
             Json = JsonConvert.SerializeObject(User, Formatting.Indented);
             for (int i = 1; i <= 3; i++)

@@ -42,13 +42,17 @@
             this.HomeBtn = new System.Windows.Forms.Button();
             this.DebtsBtn = new System.Windows.Forms.Button();
             this.BodyPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.AddBalanceBtn = new System.Windows.Forms.Button();
+            this.RemoveBalanceBtn = new System.Windows.Forms.Button();
+            this.WithdrawBtn = new System.Windows.Forms.Button();
+            this.AddSavingBtn = new System.Windows.Forms.Button();
+            this.BalancePanel = new System.Windows.Forms.Panel();
             this.BalanceAmountLb = new System.Windows.Forms.Label();
             this.BalanceLb = new System.Windows.Forms.Label();
             this.ExpensesPanel = new System.Windows.Forms.Panel();
             this.ExpenseLb = new System.Windows.Forms.Label();
             this.ExpenseAmountLb = new System.Windows.Forms.Label();
-            this.BalancePanel = new System.Windows.Forms.Panel();
+            this.SavingsPanel = new System.Windows.Forms.Panel();
             this.SavingAmountLb = new System.Windows.Forms.Label();
             this.SavingLb = new System.Windows.Forms.Label();
             this.DebtsPanel = new System.Windows.Forms.Panel();
@@ -59,9 +63,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ExitBtn)).BeginInit();
             this.MenuPanel.SuspendLayout();
             this.BodyPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.ExpensesPanel.SuspendLayout();
             this.BalancePanel.SuspendLayout();
+            this.ExpensesPanel.SuspendLayout();
+            this.SavingsPanel.SuspendLayout();
             this.DebtsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,7 +115,7 @@
             this.ExitBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ExitBtn.TabIndex = 1;
             this.ExitBtn.TabStop = false;
-            this.ExitBtn.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
             // WelcomeLb
             // 
@@ -177,13 +181,14 @@
             this.ExpensesBtn.Font = new System.Drawing.Font("HoloLens MDL2 Assets", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ExpensesBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(217)))), ((int)(((byte)(0)))));
             this.ExpensesBtn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.ExpensesBtn.Location = new System.Drawing.Point(301, 0);
+            this.ExpensesBtn.Location = new System.Drawing.Point(301, 3);
             this.ExpensesBtn.Name = "ExpensesBtn";
             this.ExpensesBtn.Size = new System.Drawing.Size(74, 53);
             this.ExpensesBtn.TabIndex = 2;
             this.ExpensesBtn.Text = "Expenses";
             this.ExpensesBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ExpensesBtn.UseVisualStyleBackColor = true;
+            this.ExpensesBtn.Click += new System.EventHandler(this.ExpensesBtn_Click);
             // 
             // HomeBtn
             // 
@@ -202,6 +207,7 @@
             this.HomeBtn.Text = "Home";
             this.HomeBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.HomeBtn.UseVisualStyleBackColor = true;
+            this.HomeBtn.Click += new System.EventHandler(this.HomeBtn_Click);
             // 
             // DebtsBtn
             // 
@@ -221,13 +227,18 @@
             this.DebtsBtn.Text = "Debts";
             this.DebtsBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.DebtsBtn.UseVisualStyleBackColor = true;
+            this.DebtsBtn.Click += new System.EventHandler(this.DebtsBtn_Click);
             // 
             // BodyPanel
             // 
             this.BodyPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(24)))), ((int)(((byte)(33)))));
-            this.BodyPanel.Controls.Add(this.panel1);
-            this.BodyPanel.Controls.Add(this.ExpensesPanel);
+            this.BodyPanel.Controls.Add(this.AddBalanceBtn);
+            this.BodyPanel.Controls.Add(this.RemoveBalanceBtn);
+            this.BodyPanel.Controls.Add(this.WithdrawBtn);
+            this.BodyPanel.Controls.Add(this.AddSavingBtn);
             this.BodyPanel.Controls.Add(this.BalancePanel);
+            this.BodyPanel.Controls.Add(this.ExpensesPanel);
+            this.BodyPanel.Controls.Add(this.SavingsPanel);
             this.BodyPanel.Controls.Add(this.DebtsPanel);
             this.BodyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BodyPanel.Location = new System.Drawing.Point(0, 61);
@@ -236,14 +247,74 @@
             this.BodyPanel.Size = new System.Drawing.Size(517, 336);
             this.BodyPanel.TabIndex = 2;
             // 
-            // panel1
+            // AddBalanceBtn
             // 
-            this.panel1.Controls.Add(this.BalanceAmountLb);
-            this.panel1.Controls.Add(this.BalanceLb);
-            this.panel1.Location = new System.Drawing.Point(301, 192);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(209, 100);
-            this.panel1.TabIndex = 3;
+            this.AddBalanceBtn.FlatAppearance.BorderSize = 0;
+            this.AddBalanceBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(215)))), ((int)(((byte)(194)))));
+            this.AddBalanceBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(46)))), ((int)(((byte)(65)))));
+            this.AddBalanceBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddBalanceBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(215)))), ((int)(((byte)(194)))));
+            this.AddBalanceBtn.Location = new System.Drawing.Point(403, 307);
+            this.AddBalanceBtn.Name = "AddBalanceBtn";
+            this.AddBalanceBtn.Size = new System.Drawing.Size(102, 23);
+            this.AddBalanceBtn.TabIndex = 4;
+            this.AddBalanceBtn.Text = "Add Balance";
+            this.AddBalanceBtn.UseVisualStyleBackColor = true;
+            this.AddBalanceBtn.Click += new System.EventHandler(this.AddBalanceBtn_Click);
+            // 
+            // RemoveBalanceBtn
+            // 
+            this.RemoveBalanceBtn.FlatAppearance.BorderSize = 0;
+            this.RemoveBalanceBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(19)))), ((int)(((byte)(45)))));
+            this.RemoveBalanceBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(46)))), ((int)(((byte)(65)))));
+            this.RemoveBalanceBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RemoveBalanceBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(19)))), ((int)(((byte)(45)))));
+            this.RemoveBalanceBtn.Location = new System.Drawing.Point(293, 307);
+            this.RemoveBalanceBtn.Name = "RemoveBalanceBtn";
+            this.RemoveBalanceBtn.Size = new System.Drawing.Size(104, 23);
+            this.RemoveBalanceBtn.TabIndex = 4;
+            this.RemoveBalanceBtn.Text = "Remove Balance";
+            this.RemoveBalanceBtn.UseVisualStyleBackColor = true;
+            this.RemoveBalanceBtn.Click += new System.EventHandler(this.RemoveBalanceBtn_Click);
+            // 
+            // WithdrawBtn
+            // 
+            this.WithdrawBtn.FlatAppearance.BorderSize = 0;
+            this.WithdrawBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(217)))), ((int)(((byte)(0)))));
+            this.WithdrawBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(46)))), ((int)(((byte)(65)))));
+            this.WithdrawBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.WithdrawBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(217)))), ((int)(((byte)(0)))));
+            this.WithdrawBtn.Location = new System.Drawing.Point(122, 307);
+            this.WithdrawBtn.Name = "WithdrawBtn";
+            this.WithdrawBtn.Size = new System.Drawing.Size(104, 23);
+            this.WithdrawBtn.TabIndex = 4;
+            this.WithdrawBtn.Text = "Withdraw Saving";
+            this.WithdrawBtn.UseVisualStyleBackColor = true;
+            this.WithdrawBtn.Click += new System.EventHandler(this.WithdrawBtn_Click);
+            // 
+            // AddSavingBtn
+            // 
+            this.AddSavingBtn.FlatAppearance.BorderSize = 0;
+            this.AddSavingBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(238)))), ((int)(((byte)(151)))));
+            this.AddSavingBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(46)))), ((int)(((byte)(65)))));
+            this.AddSavingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddSavingBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(238)))), ((int)(((byte)(151)))));
+            this.AddSavingBtn.Location = new System.Drawing.Point(12, 307);
+            this.AddSavingBtn.Name = "AddSavingBtn";
+            this.AddSavingBtn.Size = new System.Drawing.Size(104, 23);
+            this.AddSavingBtn.TabIndex = 4;
+            this.AddSavingBtn.Text = "Add Savings";
+            this.AddSavingBtn.UseVisualStyleBackColor = true;
+            this.AddSavingBtn.Click += new System.EventHandler(this.AddSavingBtn_Click);
+            // 
+            // BalancePanel
+            // 
+            this.BalancePanel.Controls.Add(this.BalanceAmountLb);
+            this.BalancePanel.Controls.Add(this.BalanceLb);
+            this.BalancePanel.Location = new System.Drawing.Point(302, 162);
+            this.BalancePanel.Name = "BalancePanel";
+            this.BalancePanel.Size = new System.Drawing.Size(209, 100);
+            this.BalancePanel.TabIndex = 3;
             // 
             // BalanceAmountLb
             // 
@@ -275,7 +346,7 @@
             // 
             this.ExpensesPanel.Controls.Add(this.ExpenseLb);
             this.ExpensesPanel.Controls.Add(this.ExpenseAmountLb);
-            this.ExpensesPanel.Location = new System.Drawing.Point(301, 43);
+            this.ExpensesPanel.Location = new System.Drawing.Point(302, 13);
             this.ExpensesPanel.Name = "ExpensesPanel";
             this.ExpensesPanel.Size = new System.Drawing.Size(204, 100);
             this.ExpensesPanel.TabIndex = 3;
@@ -306,14 +377,14 @@
             this.ExpenseAmountLb.Text = "Total Amount";
             this.ExpenseAmountLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // BalancePanel
+            // SavingsPanel
             // 
-            this.BalancePanel.Controls.Add(this.SavingAmountLb);
-            this.BalancePanel.Controls.Add(this.SavingLb);
-            this.BalancePanel.Location = new System.Drawing.Point(12, 192);
-            this.BalancePanel.Name = "BalancePanel";
-            this.BalancePanel.Size = new System.Drawing.Size(209, 100);
-            this.BalancePanel.TabIndex = 3;
+            this.SavingsPanel.Controls.Add(this.SavingAmountLb);
+            this.SavingsPanel.Controls.Add(this.SavingLb);
+            this.SavingsPanel.Location = new System.Drawing.Point(13, 162);
+            this.SavingsPanel.Name = "SavingsPanel";
+            this.SavingsPanel.Size = new System.Drawing.Size(209, 100);
+            this.SavingsPanel.TabIndex = 3;
             // 
             // SavingAmountLb
             // 
@@ -347,7 +418,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DebtsPanel.Controls.Add(this.DebtAmountLb);
             this.DebtsPanel.Controls.Add(this.DebtLb);
-            this.DebtsPanel.Location = new System.Drawing.Point(12, 43);
+            this.DebtsPanel.Location = new System.Drawing.Point(13, 13);
             this.DebtsPanel.Name = "DebtsPanel";
             this.DebtsPanel.Size = new System.Drawing.Size(209, 100);
             this.DebtsPanel.TabIndex = 3;
@@ -397,9 +468,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ExitBtn)).EndInit();
             this.MenuPanel.ResumeLayout(false);
             this.BodyPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.ExpensesPanel.ResumeLayout(false);
             this.BalancePanel.ResumeLayout(false);
+            this.ExpensesPanel.ResumeLayout(false);
+            this.SavingsPanel.ResumeLayout(false);
             this.DebtsPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -423,14 +494,18 @@
         private System.Windows.Forms.Panel ExpensesPanel;
         private System.Windows.Forms.Label ExpenseLb;
         private System.Windows.Forms.Label ExpenseAmountLb;
-        private System.Windows.Forms.Panel BalancePanel;
+        private System.Windows.Forms.Panel SavingsPanel;
         private System.Windows.Forms.Panel DebtsPanel;
         private System.Windows.Forms.Label DebtAmountLb;
         private System.Windows.Forms.Label DebtLb;
         private System.Windows.Forms.Label SavingAmountLb;
         private System.Windows.Forms.Label SavingLb;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel BalancePanel;
         private System.Windows.Forms.Label BalanceAmountLb;
         private System.Windows.Forms.Label BalanceLb;
+        private System.Windows.Forms.Button AddBalanceBtn;
+        private System.Windows.Forms.Button RemoveBalanceBtn;
+        private System.Windows.Forms.Button WithdrawBtn;
+        private System.Windows.Forms.Button AddSavingBtn;
     }
 }
