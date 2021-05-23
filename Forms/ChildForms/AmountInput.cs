@@ -1,6 +1,6 @@
-﻿using System.Runtime.InteropServices;
-using System;
+﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Forms.ChildForms
@@ -37,7 +37,7 @@ namespace Forms.ChildForms
         private void SumbitBtn_Click(object sender, EventArgs e)
         {
             decimal MyAmount;
-            switch (UserCache.ActualState)
+            switch (UserCache.ActualInputAmountState)
             {
                 case 0://Add Balance
                     {
@@ -137,7 +137,7 @@ namespace Forms.ChildForms
         /// <param name="e"></param>
         private void AmountInput_Load(object sender, EventArgs e)
         {
-            switch (UserCache.ActualState)
+            switch (UserCache.ActualInputAmountState)
             {
                 case 0://Add Balance
                     {

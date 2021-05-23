@@ -77,12 +77,12 @@ namespace DataAccess
 
 
                     InsertCom.Parameters.Add("@ID", System.Data.DbType.Int32).Value = MyDebt.ID;
-                    InsertCom.Parameters.Add("@DL", System.Data.DbType.String).Value = MyDebt.Date.ToString();
+                    InsertCom.Parameters.Add("@DL", System.Data.DbType.String).Value = MyDebt.DeadLine.ToString();
                     InsertCom.Parameters.Add("@DES", System.Data.DbType.String).Value = MyDebt.Description;
                     InsertCom.Parameters.Add("@AMO", System.Data.DbType.Decimal).Value = MyDebt.Amount;
 
                     UpdateCom.Parameters.Add("@ID", System.Data.DbType.Int32).Value = MyDebt.ID;
-                    UpdateCom.Parameters.Add("@DL", System.Data.DbType.String).Value = MyDebt.Date.ToString();
+                    UpdateCom.Parameters.Add("@DL", System.Data.DbType.String).Value = MyDebt.DeadLine.ToString();
                     UpdateCom.Parameters.Add("@DES", System.Data.DbType.String).Value = MyDebt.Description;
                     UpdateCom.Parameters.Add("@AMO", System.Data.DbType.Decimal).Value = MyDebt.Amount;
 
@@ -201,12 +201,12 @@ namespace DataAccess
 
 
                     InsertCom.Parameters.Add("@ID", System.Data.DbType.Int32).Value = MyExpense.ID;
-                    InsertCom.Parameters.Add("@DT", System.Data.DbType.String).Value = MyExpense.Date.ToString();
+                    InsertCom.Parameters.Add("@DT", System.Data.DbType.String).Value = MyExpense.ExpenseDate.ToString();
                     InsertCom.Parameters.Add("@DES", System.Data.DbType.String).Value = MyExpense.Description;
                     InsertCom.Parameters.Add("@AMO", System.Data.DbType.Decimal).Value = MyExpense.Amount;
 
                     UpdateCom.Parameters.Add("@ID", System.Data.DbType.Int32).Value = MyExpense.ID;
-                    UpdateCom.Parameters.Add("@DT", System.Data.DbType.String).Value = MyExpense.Date.ToString();
+                    UpdateCom.Parameters.Add("@DT", System.Data.DbType.String).Value = MyExpense.ExpenseDate.ToString();
                     UpdateCom.Parameters.Add("@DES", System.Data.DbType.String).Value = MyExpense.Description;
                     UpdateCom.Parameters.Add("@AMO", System.Data.DbType.Decimal).Value = MyExpense.Amount;
 

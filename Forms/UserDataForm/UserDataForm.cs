@@ -86,9 +86,9 @@ namespace Forms
                 MessageBox.Show("Some fields are filled with examples.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (!(CheckString(NameTBox.Text) ||
-                CheckString(LastNameTBox.Text) ||
-                CheckString(CurrencyTBox.Text)))
+            else if (!(Utilities.CheckString(NameTBox.Text) ||
+                Utilities.CheckString(LastNameTBox.Text) ||
+                Utilities.CheckString(CurrencyTBox.Text)))
             {
                 MessageBox.Show("Some fields may be invalid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -114,20 +114,7 @@ namespace Forms
                 Main.Show();
             }
         }
-        /// <summary>
-        /// Validates a Letters string
-        /// </summary>
-        /// <param name="MyString"></param>
-        /// <returns></returns>
-        public bool CheckString(string MyString)
-        {
-            foreach (char a in MyString)
-            {
-                if (!Char.IsLetter(a))
-                    return false;
-            }
-            return true;
-        }
+        
         /// <summary>
         /// Form dragging event.
         /// </summary>

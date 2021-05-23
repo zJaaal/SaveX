@@ -80,10 +80,11 @@ namespace Money
     /// I will just document the methods of Expense Class since the other ones are the same 
     /// with few changes of logic
     /// </summary>
-    public class Expense : Balance
+    public class Expense : ICloneable
     {
         public DateTime ExpenseDate { get; set; }
         public string Description { get; set; }
+        public decimal Amount { get; set; }
         public int ID { get; set; }
         public static decimal TotalExpenses
         {
@@ -92,12 +93,16 @@ namespace Money
                 return Expenses.Select(x => x.Amount).Sum();
             }
         }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
         /// <summary>
         /// A list of expenses to send and recieve from the database
         /// </summary>
         public static List<Expense> Expenses = new List<Expense>();
         public static List<Expense> CopyExpenses = new List<Expense>();
-        public Expense(int ID, DateTime ExpenseDate, string Description, decimal Amount) : base(ExpenseDate, Description, Amount)
+        public Expense(int ID, DateTime ExpenseDate, string Description, decimal Amount)
         {
             this.ExpenseDate = ExpenseDate;
             this.Description = Description;
@@ -131,7 +136,7 @@ namespace Money
             Expense Copy = (Expense)MyExpense.Clone();
             CopyExpenses.Add(Copy);
             Account.Amount += MyExpense.Amount;
-            Expenses.Remove(MyExpense);
+            Expenses.RemoveAll(x => x.ID == MyExpense.ID);
             UpdateId();
         }
         /// <summary>
@@ -159,10 +164,11 @@ namespace Money
             }
         }
     }
-    public class Debt : Balance
+    public class Debt : ICloneable
     {
         public DateTime DeadLine { get; set; }
         public string Description { get; set; }
+        public decimal Amount { get; set; }
         public int ID { get; set; }
         public static List<Debt> Debts = new List<Debt>();
         public static List<Debt> CopyDebts = new List<Debt>();
@@ -173,7 +179,12 @@ namespace Money
                 return Debts.Select(x => x.Amount).Sum();
             }
         }
-        public Debt(int ID, DateTime DeadLine, string Description, decimal Amount) : base(DeadLine, Description, Amount)
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+        public Debt() { }
+        public Debt(int ID, DateTime DeadLine, string Description, decimal Amount)
         {
             this.DeadLine = DeadLine;
             this.Description = Description;
@@ -185,7 +196,7 @@ namespace Money
             Account.Amount -= MyDebt.Amount;
             Debt Debtcopy = (Debt)MyDebt.Clone();
             CopyDebts.Add(Debtcopy);
-            Debts.Remove(MyDebt);
+            Debts.RemoveAll(x => x.ID == MyDebt.ID);
             UpdateId();
         }
 

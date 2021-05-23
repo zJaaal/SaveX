@@ -4,6 +4,9 @@
     <Compile Update="ChildForms\AmountInput.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ChildForms\DebtChild.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ChildForms\DebtsForm.cs">
       <SubType>Form</SubType>
     </Compile>

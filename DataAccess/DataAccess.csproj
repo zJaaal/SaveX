@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Money\Money.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SavexUserData\" />
-  </ItemGroup>
-
 </Project>

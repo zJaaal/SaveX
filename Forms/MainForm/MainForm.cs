@@ -1,8 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using DataAccess;
 using Money;
-using DataAccess;
-using System.Runtime.InteropServices;
 using System;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 namespace Forms
 {
     public partial class MainForm : Form
@@ -31,10 +31,10 @@ namespace Forms
             DateTimeLabel.Text = DateTime.Now.ToString("D");
             UserCache.TotalExpense = Expense.TotalExpenses;
             UserCache.TotalDebt = Debt.TotalDebts;
-            BalanceAmountLb.Text = UserCache.Account.Amount.ToString("#,#") + " " + UserCache.Currency;
-            ExpenseAmountLb.Text = UserCache.TotalExpense.ToString("#,#") + " " + UserCache.Currency;
-            SavingAmountLb.Text = UserCache.Account.Saves.ToString("#,#") + " " + UserCache.Currency;
-            DebtAmountLb.Text = UserCache.TotalDebt.ToString("#,#") + " " + UserCache.Currency;
+            BalanceAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Amount);
+            ExpenseAmountLb.Text = Utilities.GetDecimal(UserCache.TotalExpense);
+            SavingAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Saves);
+            DebtAmountLb.Text = Utilities.GetDecimal(UserCache.TotalDebt);
         }
         /// <summary>
         /// This event Saves current data and close the app.
@@ -43,20 +43,6 @@ namespace Forms
         /// <param name="e"></param>
         private void ExitBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
-                JsonData.UpdateJson(UserCache.Account, Debt.TotalDebts);
-                SQLiteDataBase.InsertOrUpdateDebts(Debt.Debts);
-                SQLiteDataBase.InsertOrUpdateExpenses(Expense.Expenses);
-                MessageBox.Show("Data saved succesfully.");
-
-            }
-            catch(Exception Ex)
-            {
-                MessageBox.Show(Ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MessageBox.Show("Try again. Don't force close, data may not have been saved", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             Application.Exit();
         }
 
@@ -84,36 +70,36 @@ namespace Forms
         /// <param name="e"></param>
         private void AddBalanceBtn_Click(object sender, EventArgs e)
         {
-            UserCache.ActualState = (int) UserCache.InputAmountState.AddBalance;
+            UserCache.ActualInputAmountState = (int) UserCache.InputAmountState.AddBalance;
             ChildForms.AmountInput Input = new ChildForms.AmountInput();
             Input.ShowDialog();
-            BalanceAmountLb.Text = UserCache.Account.Amount.ToString("#,#") + " " + UserCache.Currency;
+            BalanceAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Amount);
         }
 
         private void RemoveBalanceBtn_Click(object sender, EventArgs e)
         {
-            UserCache.ActualState = (int)UserCache.InputAmountState.RemoveError;
+            UserCache.ActualInputAmountState = (int)UserCache.InputAmountState.RemoveError;
             ChildForms.AmountInput Input = new ChildForms.AmountInput();
             Input.ShowDialog();
-            BalanceAmountLb.Text = UserCache.Account.Amount.ToString("#,#") + " " + UserCache.Currency;
+            BalanceAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Amount);
         }
 
         private void WithdrawBtn_Click(object sender, EventArgs e)
         {
-            UserCache.ActualState = (int)UserCache.InputAmountState.Withdraw;
+            UserCache.ActualInputAmountState = (int)UserCache.InputAmountState.Withdraw;
             ChildForms.AmountInput Input = new ChildForms.AmountInput();
             Input.ShowDialog();
-            SavingAmountLb.Text = UserCache.Account.Saves.ToString("#,#") + " " + UserCache.Currency;
-            BalanceAmountLb.Text = UserCache.Account.Amount.ToString("#,#") + " " + UserCache.Currency;
+            SavingAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Saves);
+            BalanceAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Amount);
         }
 
         private void AddSavingBtn_Click(object sender, EventArgs e)
         {
-            UserCache.ActualState =(int) UserCache.InputAmountState.AddSaving;
+            UserCache.ActualInputAmountState =(int) UserCache.InputAmountState.AddSaving;
             ChildForms.AmountInput Input = new ChildForms.AmountInput();
             Input.ShowDialog();
-            SavingAmountLb.Text = UserCache.Account.Saves.ToString("#,#") + " " + UserCache.Currency;
-            BalanceAmountLb.Text = UserCache.Account.Amount.ToString("#,#") + " " + UserCache.Currency;
+            SavingAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Saves);
+            BalanceAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Amount);
         }
         private Form ActiveForm = null;
         /// <summary>
@@ -150,7 +136,30 @@ namespace Forms
 
         private void HomeBtn_Click(object sender, EventArgs e)
         {
+            UserCache.TotalExpense = Expense.TotalExpenses;
+            UserCache.TotalDebt = Debt.TotalDebts;
+            BalanceAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Amount);
+            ExpenseAmountLb.Text = Utilities.GetDecimal(UserCache.TotalExpense);
+            SavingAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Saves);
+            DebtAmountLb.Text = Utilities.GetDecimal(UserCache.TotalDebt);
             ActiveForm.Close();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                JsonData.UpdateJson(UserCache.Account, Debt.TotalDebts);
+                SQLiteDataBase.InsertOrUpdateDebts(Debt.Debts);
+                SQLiteDataBase.InsertOrUpdateExpenses(Expense.Expenses);
+                MessageBox.Show("Data saved succesfully.");
+
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Data may not have been saved", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
