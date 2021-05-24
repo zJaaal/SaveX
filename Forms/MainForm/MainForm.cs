@@ -136,6 +136,9 @@ namespace Forms
 
         private void HomeBtn_Click(object sender, EventArgs e)
         {
+            if (ActiveForm == null)
+                return;
+
             UserCache.TotalExpense = Expense.TotalExpenses;
             UserCache.TotalDebt = Debt.TotalDebts;
             BalanceAmountLb.Text = Utilities.GetDecimal(UserCache.Account.Amount);
