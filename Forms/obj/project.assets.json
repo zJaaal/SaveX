@@ -1229,9 +1229,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Forms\\Forms.csproj",
-      "projectName": "Forms",
-      "projectPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Forms\\Forms.csproj",
+      "projectUniqueName": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Forms\\SaveX.csproj",
+      "projectName": "SaveX",
+      "projectPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Forms\\SaveX.csproj",
       "packagesPath": "C:\\Users\\astef_000\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\Forms\\obj\\",
       "projectStyle": "PackageReference",

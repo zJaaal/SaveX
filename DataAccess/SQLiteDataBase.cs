@@ -11,8 +11,14 @@ namespace DataAccess
     /// </summary>
     public class SQLiteDataBase
     {
-        private static readonly string SQLDirectory = @"C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\SavexUserData\UserBalances.sqlite";
+        private static string SQLDirectory
+        {
+            get
+            {
+                return Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"SavexUserData\UserBalances.sqlite"));
 
+            }
+        }
         public static bool CreateDataBase()
         {
             if (!File.Exists(SQLDirectory))
@@ -274,7 +280,7 @@ namespace DataAccess
                 }
             }
         }
-        public static void DeleteExpenses(Expense MyExpense)
+        public static void DeleteExpense(Expense MyExpense)
         {
             using (var con = new SQLiteConnection("Data Source =" + SQLDirectory))
             {

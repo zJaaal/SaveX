@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Money", "Money\Money.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{9EB0F3CC-C7E0-4B01-A257-1DC031BB0580}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms", "Forms\Forms.csproj", "{60216B34-B81A-4F1A-9024-E2E15A35FFF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaveX", "Forms\SaveX.csproj", "{60216B34-B81A-4F1A-9024-E2E15A35FFF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

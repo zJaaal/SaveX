@@ -23,7 +23,7 @@ namespace Forms
             if (Amount == 0m)
                 return "0.00" + " "+UserCache.Currency;
 
-            return Amount.ToString("#,#") + " " + UserCache.Currency;
+            return Amount.ToString("n2") + " " + UserCache.Currency;
         }
     }
 }

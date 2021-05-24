@@ -102,6 +102,7 @@ namespace Money
         /// </summary>
         public static List<Expense> Expenses = new List<Expense>();
         public static List<Expense> CopyExpenses = new List<Expense>();
+        public Expense() { }
         public Expense(int ID, DateTime ExpenseDate, string Description, decimal Amount)
         {
             this.ExpenseDate = ExpenseDate;
@@ -154,6 +155,26 @@ namespace Money
             CopyExpenses.RemoveAt(CopyExpenses.Count - 1);
             UpdateId();
         }
+        /// <summary>
+        /// This method takes new data to update a selected Expense
+        /// </summary>
+        /// <param name="MyExpense"></param>
+        /// <param name="Amount"></param>
+        /// <param name="Description"></param>
+        /// <param name="DT"></param>
+        public static void Edit(Expense MyExpense, decimal Amount, string Description, DateTime DT, Balance MyBalance)
+        {
+            ///If the Expense is greater than the new amount then you took more than it should take.
+            if (MyExpense.Amount > Amount)
+                MyBalance.Amount += MyExpense.Amount - Amount;
+            ///If the Amount is greater than the old amount then you took less than it should take.
+            if (MyExpense.Amount < Amount)
+                MyBalance.Amount -= Amount - MyExpense.Amount;
+
+            MyExpense.Amount = Amount;
+            MyExpense.Description = Description;
+            MyExpense.ExpenseDate = DT;
+        }
         private static void UpdateId()
         {
             int Count = 1;
@@ -205,6 +226,12 @@ namespace Money
             Debt MyDebt = new Debt(ID, DeadLine, Description, Amount);
             Debts.Add(MyDebt);
             UpdateId();
+        }
+        public static void Edit(Debt MyDebt, decimal Amount, string Description, DateTime DT)
+        {
+            MyDebt.Amount = Amount;
+            MyDebt.Description = Description;
+            MyDebt.DeadLine = DT;
         }
         public static void Undo(Balance Account)
         {

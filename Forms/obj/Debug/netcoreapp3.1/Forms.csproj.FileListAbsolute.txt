@@ -40,3 +40,4 @@ C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Forms\obj\Debug\netcoreap
 C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Forms\obj\Debug\netcoreapp3.1\Forms.ChildForms.DebtsForm.resources
 C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Forms\obj\Debug\netcoreapp3.1\Forms.ChildForms.ExpensesForm.resources
 C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Forms\obj\Debug\netcoreapp3.1\Forms.ChildForms.DebtChild.resources
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Forms\obj\Debug\netcoreapp3.1\Forms.ChildForms.ExpenseChild.resources

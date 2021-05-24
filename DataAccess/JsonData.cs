@@ -1,5 +1,6 @@
 ﻿using Money;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Threading;
 namespace DataAccess
@@ -16,7 +17,14 @@ namespace DataAccess
         public string Currency { get; set; }
         private static string Json { get; set; }
 
-        public static readonly string JsonDirectoryPath = @"C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\SavexUserData\User.json";
+        private static string JsonDirectoryPath 
+        {
+            get
+            {
+                return Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"SavexUserData\User.json"));
+            } 
+        }
+                
 
         /// <summary>
         /// This method checks if the json file is filled, if it's not it returns true
