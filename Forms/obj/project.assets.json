@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
+    "net5.0-windows7.0": {
       "EntityFramework/6.3.0": {
         "type": "package",
         "dependencies": {
@@ -343,7 +343,7 @@
       },
       "DataAccess/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
+        "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Money": "1.0.0",
           "Newtonsoft.Json": "13.0.1",
@@ -358,7 +358,7 @@
       },
       "Money/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
+        "framework": ".NETCoreApp,Version=v5.0",
         "compile": {
           "bin/placeholder/Money.dll": {}
         },
@@ -1216,7 +1216,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
+    "net5.0-windows7.0": [
       "DataAccess >= 1.0.0",
       "Money >= 1.0.0",
       "Newtonsoft.Json >= 13.0.1",
@@ -1240,15 +1240,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "net5.0-windows7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net5.0-windows7.0": {
+          "targetAlias": "net5.0-windows",
           "projectReferences": {
             "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\DataAccess\\DataAccess.csproj": {
               "projectPath": "C:\\Users\\astef_000\\Desktop\\Jalinson\\Programming\\_SaveX\\DataAccess\\DataAccess.csproj"
@@ -1266,8 +1266,8 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
+      "net5.0-windows7.0": {
+        "targetAlias": "net5.0-windows",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",

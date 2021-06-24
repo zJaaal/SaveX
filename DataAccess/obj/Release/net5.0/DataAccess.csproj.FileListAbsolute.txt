@@ -1,0 +1,15 @@
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Release\net5.0\DataAccess.deps.json
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Release\net5.0\DataAccess.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Release\net5.0\ref\DataAccess.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Release\net5.0\DataAccess.pdb
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Release\net5.0\Money.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\bin\Release\net5.0\Money.pdb
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\DataAccess.csprojAssemblyReference.cache
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\DataAccess.AssemblyInfo.cs
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\DataAccess.csproj.CopyComplete
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\DataAccess.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\ref\DataAccess.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\DataAccess\obj\Release\net5.0\DataAccess.pdb

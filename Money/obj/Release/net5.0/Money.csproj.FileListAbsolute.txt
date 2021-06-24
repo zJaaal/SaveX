@@ -1,0 +1,12 @@
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\bin\Release\net5.0\Money.deps.json
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\bin\Release\net5.0\Money.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\bin\Release\net5.0\ref\Money.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\bin\Release\net5.0\Money.pdb
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\obj\Release\net5.0\Money.csprojAssemblyReference.cache
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\obj\Release\net5.0\Money.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\obj\Release\net5.0\Money.AssemblyInfoInputs.cache
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\obj\Release\net5.0\Money.AssemblyInfo.cs
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\obj\Release\net5.0\Money.csproj.CoreCompileInputs.cache
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\obj\Release\net5.0\Money.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\obj\Release\net5.0\ref\Money.dll
+C:\Users\astef_000\Desktop\Jalinson\Programming\_SaveX\Money\obj\Release\net5.0\Money.pdb
